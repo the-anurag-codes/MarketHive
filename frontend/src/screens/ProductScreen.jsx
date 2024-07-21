@@ -14,18 +14,20 @@ import Rating from "../components/Rating";
 import { listProductDetails } from "../actions/productActions";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
+import { addToCart } from "../actions/cartActions";
 
-const ProductScreen = ({ history,}) => {
-  const [qty, setQty] = useState(0);
+const ProductScreen = () => {
+  const [qty, setQty] = useState(1);
   const { id } = useParams();
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(listProductDetails(id));
   }, [dispatch, id]);
 
   const addToCartHandler = () => {
+    dispatch(addToCart(id, qty));
     navigate(`/cart/${id}?qty=${qty}`);
   };
 
